@@ -3,6 +3,38 @@
     --bg-color: #0C0C0C;
     --primary: #F2613F;
     --secundary-color: #9B3922;
+    --font: "Nunito", sans-serif 
+} 
 
- } 
+body{
+    background-color: var(--bg-color);
+    color: var(--primary-color);
+    font-family: var(--font);
+    height: 100vh;
+    margin: 0;
+}
+ 
+header{
+    background-color: var(--primary-color);
+    text-align: center;
+    color: var(--bg-color);
+}
+
+h1{
+    font-size: 2rem;
+    color: var(--bg-color);
+    font-weight: 700;
+}
+
+nav{
+    display: flex;
+    justify-content: center;
+    font-weight: 400;
+}
+
+nav a{
+    text-decoration: none;
+    color: var(--bg-color);
+    margin: 0 2rem 1rem 0;
+}
  
