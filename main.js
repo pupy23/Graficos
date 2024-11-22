@@ -1,15 +1,41 @@
-const url= 'https://raw.githubusercontent.com/guilhermeonrails/api/main/dados-globais.json'
+// graficos.js     
 
-async function vizualizadorInformacoesGlobais(){
-const res=await fetch(url)
-const dados=await res.json()
-console.log(dados);
-const paragrafo=document.createElement('p')
-paragrafo.classList.add('graficos-container__texto')
-paragrafo.innerHTML = `Você sabia que o mundo tem <span>${dados.total_pessoas_mundo}</span> de pessoas e que aproximadamente <span>${dados.total_pessoas_conectadas}</span> estão conectadas em alguma rede social e passam em média <span>${dados.tempo_medio}</span> horas conectadas.`
-console.log(paragrafo)
-console.log(paragrafo)
-const container=document.getElementById('graficos-container')
-container.appendChild(paragrafo)
-}
-vizualizadorInformacoesGlobais()
+import { obterDadosGlobais, titulo, cores } from './importacoesGlobais.js';
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const container = document.getElementById("graficos-container");
+    const dadosGlobais = await obterDadosGlobais();
+
+    if (dadosGlobais) {
+        const ctx = document.createElement("canvas");
+        container.appendChild(ctx);
+       
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Facebook", "Instagram", "Twitter"],
+                datasets: [{
+                    label: 'Engajamento',
+                    data: [
+                        dadosGlobais.facebook.engajamento,
+                        dadosGlobais.instagram.engajamento,
+                        dadosGlobais.twitter.engajamento
+                    ],
+                    backgroundColor: cores.primaria,
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: titulo
+                    }
+                }
+            },
+        });
+    }
+});
